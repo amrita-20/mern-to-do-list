@@ -30,7 +30,7 @@ app.listen(PORT, () => {
 
 app.post("/api/v1/session", (req, res) => {
   const { username } = req.body;
-  if (!isValidUSer(username)) {
+  if (!users.isValidUSer(username)) {
     res.status(400).json({ error: "invalid username" });
     return;
   }
@@ -47,3 +47,13 @@ app.post("/api/v1/session", (req, res) => {
   res.cookie("sid", sid);
   res.status(200).json(users.getUserData(username));
 });
+
+app.get("/api/v1/todos", (req, res) => {
+    const sid = req.cookies.sid;
+    const username  = sid ? sessions.getSessionUSer(sid) : '';
+    if(!users.isValidUSer(username)){
+        res.status(401).json({error: "auth-missing"});
+        return;
+    }
+    res.json(users.getUserData(username).getTodos());
+})
