@@ -28,32 +28,32 @@ app.listen(PORT, () => {
   console.log(`app is listening on ${PORT}`);
 });
 
-app.post("/api/v1/session", (req, res) => {
-  const { username } = req.body;
-  if (!users.isValidUSer(username)) {
-    res.status(400).json({ error: "invalid username" });
-    return;
-  }
-  if (username === "password") {
-    res.status(403).json({ error: "auth-insufficient" });
-    return;
-  }
+// app.post("/api/v1/session", (req, res) => {
+//   const { username } = req.body;
+//   if (!users.isValidUSer(username)) {
+//     res.status(400).json({ error: "invalid username" });
+//     return;
+//   }
+//   if (username === "password") {
+//     res.status(403).json({ error: "auth-insufficient" });
+//     return;
+//   }
 
-  const sid = sessions.addSession(username);
-  const existingUser = users.getUserData(username);
-  if (!existingUser) {
-    users.addUserData(username, todos.makeTodoList());
-  }
-  res.cookie("sid", sid);
-  res.status(200).json(users.getUserData(username));
-});
+//   const sid = sessions.addSession(username);
+//   const existingUser = users.getUserData(username);
+//   if (!existingUser) {
+//     users.addUserData(username, todos.makeTodoList());
+//   }
+//   res.cookie("sid", sid);
+//   res.status(200).json(users.getUserData(username));
+// });
 
-app.get("/api/v1/todos", (req, res) => {
-    const sid = req.cookies.sid;
-    const username  = sid ? sessions.getSessionUSer(sid) : '';
-    if(!users.isValidUSer(username)){
-        res.status(401).json({error: "auth-missing"});
-        return;
-    }
-    res.json(users.getUserData(username).getTodos());
-})
+// app.get("/api/v1/todos", (req, res) => {
+//     const sid = req.cookies.sid;
+//     const username  = sid ? sessions.getSessionUSer(sid) : '';
+//     if(!users.isValidUSer(username)){
+//         res.status(401).json({error: "auth-missing"});
+//         return;
+//     }
+//     res.json(users.getUserData(username).getTodos());
+// })

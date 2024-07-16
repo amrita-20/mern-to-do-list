@@ -1,5 +1,3 @@
-const { response } = require("express");
-
 export function getSession () {
     return fetch("/api/v1/session", {
         method: "GET"
@@ -7,13 +5,15 @@ export function getSession () {
     .then(response => {
         if(response.ok)
             return response.json();
-        return response.json();
+        return response.json()
+        .catch( error => Promise.reject({ error }) )
+        .then( err => Promise.reject(err) );
     })
     .catch( () => Promise.reject({ error: 'networkError' }) )
 }
 
 export function addSession (username) {
-    return fetch("/api/v/session", {
+    return fetch("/api/v1/session", {
         method: "POST",
         headers: new Headers({
             'content-type': 'application/json'
