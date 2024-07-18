@@ -1,36 +1,15 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
+import reactLogo from './assets/react.svg'
+import viteLogo from '/vite.svg'
 import './App.css'
 import LoginForm from './LoginForm'
-import { getSession, getTodos } from './services'
 
 function App() {
-  const [username, setUsername] = useState("");
-  const [todos, setTodos] = useState({});
- 
-  const fetchSession = () => {
-    getSession().then((usernam) => {
-      setUsername(usernam);
-      return getTodos();
-    })
-    .then((newTodos) => {
-      setTodos(prevTodos => ({...prevTodos, ...newTodos}))
-    })
-    .catch(err => {
-      console.log(err);
-    })
-  }
-
-  useEffect(() => {
-    fetchSession();
-  }, [])
+  const [count, setCount] = useState(0)
 
   return (
     <>
-     <header>Welcome</header>
-     <main>
       <LoginForm />
-     </main>
-     <footer>Privacy Policy</footer>
     </>
   )
 }

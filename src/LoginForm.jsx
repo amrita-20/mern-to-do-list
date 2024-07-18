@@ -1,12 +1,9 @@
 function LoginForm () {
-    const handleLogin = () => {
-        
-    }
-    return(
-        <form className="form" onSubmit={handleLogin}>
+    return (
+        <form name="login">
             <label htmlFor="username">username</label>
-            <input id="username" className="form-input" type="text" />
-            <button className="button">Login</button>
+            <input type="text" id="username"></input>
+            <button type="button">Submit</button>
         </form>
     )
 }
