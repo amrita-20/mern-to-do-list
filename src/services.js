@@ -30,3 +30,17 @@ export function addSession (username) {
         .then( err => Promise.reject(err) );
     })
 }
+
+export function getTodos() {
+    return fetch("/api/v1/todos", {
+        method: "GET"
+    })
+    .catch(() => Promise.reject({ error: "networkError"}))
+    .then((response) => {
+        if(response.ok)
+            return response.json();
+        return response.json()
+        .catch( error => Promise.reject({ error }) )
+        .then( err => Promise.reject(err) );
+    })
+}

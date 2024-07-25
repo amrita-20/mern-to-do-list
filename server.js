@@ -42,6 +42,16 @@ app.post("/api/v1/session", (req, res) => {
     res.status(200).json(user.getUserData(username));
 })
 
+app.get("/api/v1/todos", (req, res) => {
+    const sid = req.cookies.sid;
+    const username = sid ? session.getSessionUser(sid) : '';
+    if(!user.isValidUSer(username)){
+        res.status(401).json({error: "auth-missing"});
+        return;
+    }
+    res.json(user.getUserData(username).getTodos());
+})
+
 
 
 
